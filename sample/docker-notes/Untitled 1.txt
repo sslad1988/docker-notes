@@ -1,0 +1,66 @@
+﻿
+
+curl -L https://github.com/docker/machine/releases/download/v0.16.0/docker-machine-`uname -s`-`uname -m` >/tmp/docker-machine &&
+chmod +x /tmp/docker-machine &&
+sudo cp /tmp/docker-machine /usr/local/bin/docker-machine
+
+sudo apt-get install virtualbox
+
+sudo apt-get install openjdk-8-jdk
+
+curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
+
+sudo apt install nodejs
+
+https://www.itzgeek.com/how-tos/linux/ubuntu-how-tos/how-to-install-visual-studio-code-on-ubuntu-18-04-linux-mint-19-debian-9.html
+
+
+Commands to follow :
+
+https://docs.docker.com/install/linux/docker-ce/ubuntu/
+docker –version
+sudo docker info
+sudo service docker start
+sudo docker images
+sudo docker ps
+sudo docker ps -a (all running & non running container)
+sudo docker login
+sudo docker pull hello-world
+sudo docker run hello-world
+sudo docker rmi hello-world
+sudo docker rm ea1dbd6519bf
+sudo docker rmi hello-world -f
+sudo docker rmi –help
+sudo docker images -a
+sudo docker history redis
+sudo docker system prune
+sudo docker stop 2a4bf4049917
+sudo docker pull ubuntu:18.04
+sudo docker run -it ubuntu:18.04
+sudo docker run --name myubuntu -it ubuntu:18.04 bash
+sudo docker stats
+sudo docker stats 2a4bf4049917
+sudo docker attach 2a4bf4049917
+sudo docker pause  2a4bf4049917
+
+sudo docker pull jenkins
+sudo docker run -p 8080:8080 -p 50000:50000 jenkins
+password 6ac030e7c9754c83b706ebc7c9f8ba84
+
+docker ps
+docker stop jeninsid
+docker ps -a
+docker rm jenkinsid
+docker run –name myJenkins2 -p 9090:8080 -p 50000:50000
+
+sudo docker volume –help
+sudo docker volume create myvolume
+sudo docker volume inspect myvolume
+
+sudo docker run --name MyJenkins1 -v myvoulume:/var/jenkins_home -p 8080:8080 -p 50000:50000 jenkins
+ 
+
+sudo docker run --name MyJenkins2 -v myvoulume:/var/jenkins_home -p 9090:8080 -p 60000:50000 jenkins
+
+
+
