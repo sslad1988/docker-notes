@@ -58,8 +58,171 @@ sudo docker volume create myvolume
 sudo docker volume inspect myvolume
 
 sudo docker run --name MyJenkins1 -v myvoulume:/var/jenkins_home -p 8080:8080 -p 50000:50000 jenkins
- 
+
+
 
 sudo docker run --name MyJenkins2 -v myvoulume:/var/jenkins_home -p 9090:8080 -p 60000:50000 jenkins
 
+
+
+detached
+
+docker run –name myJenkins2 -p 9090:8080 -p 50000:50000 -d
+sudo docker exec -it 8a08851b6505 bash
+
+sudo docker build .
+sudo docker images
+sudo docker run 75f7173683ee
+sudo docker build -t  dockerfile:base .
+
+
+
+sudo docker run --name mysql-standalone -e MYSQL_ROOT_PASSWORD=password -e MYSQL_DATABASE=test -e MYSQL_USER=sa -e MYSQL_PASSWORD=password -d mysql:5.6
+
+sudo docker logs a3c2501f2c0e
+
+sudo docker p 8086:8086 –name usersmysql –link mysql-standalone:mysql d usersmysql
+
+
+sudo curl -L https://github.com/docker/compose/releases/download/1.21.2/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
+
+sudo chmod +x /usr/local/bin/docker-compose
+
+git remote set-url origin git@github.com:sslad1988/docker-notes.git
+
+
+git push https://sslad1988:ithubG@20github.com/sslad1988/docker-notes.git –all
+https://sslad1988:ithubG@20github.com/sslad1988/docker-notes.git
+
+
+
+Publish image to  docker hub
+sudo docker login -u sagarlad
+sudo docker images
+sudo docker tag users-mysql:latest sagarlad/training:usersmysqlimage
+sudo docker push sagarlad/training:usersmysqlimage
+
+
+
+Docker Compose
+sudo docker-compose --version
+sudo docker-compose config
+sudo docker-compose up -d
+sudo docker images
+sudo docker ps -a
+sudo docker ps
+sudo docker exec -it 6723282bd4ae bash
+>redis-cli
+>set myval 5
+>get myval
+
+attach vs exec
+
+
+sudo docker-compose down
+update yml
+sudo docker-compose config
+sudo docker-compose up -d
+sudo docker-compose up -d --scale database=4
+scaledown
+sudo docker-compose  up -d --scale database=2
+
+
+ 
+
+
+
+
+sudo docker build . -t combinedapp
+sudo docker images
+sudo docker-compose up -d
+http://localhost:4001/
+sudo docker exec -it ea5763fae561 bash
+>redis-cli
+>get visits
+
+
+Docker Swarm
+Docker machine download
+curl -L https://github.com/docker/machine/releases/download/v0.13.0/docker-machine-`uname -s`-`uname -m` >/tmp/docker-machine && \
+chmod +x /tmp/docker-machine && \
+sudo cp /tmp/docker-machine /usr/local/bin/docker-machine
+docker-machine version
+
+sudo curl -Lo ~/.docker/machine/cache https://github.com/boot2docker/boot2docker/releases/download/v18.09.1-rc1/boot2docker.iso
+ sudo docker-machine create --driver virtualbox manager1
+ sudo docker-machine create --driver virtualbox worker1
+ sudo docker-machine create --driver virtualbox worker2
+ sudo docker-machine create --driver virtualbox worker3
+
+sudo docker-machine ls
+sudo docker-machine ssh manager1
+sudo docker-machine ssh worker1
+sudo docker-machine ssh worker2
+sudo docker-machine ssh worker3
+
+sudo docker-machine ip manager1
+
+
+Manager
+sudo docker swarm init --advertise-addr 192.168.99.100
+All Worker
+docker swarm join --token SWMTKN-1-1xx28v9a6042bff77jupassp987cpccqrvqzc1twnepcpjdz5a-f0yl06zdnmc4ymyh2yaou8d30 192.168.99.100:2377
+
+
+Manager 
+docker node ls
+docker service create --replicas 3 -p 80:80 --name web1 nginx
+docker service ls
+docker service ps web1
+docker service scale  web1=5
+
+sudo docker-machine stop manager1
+
+
+Docker Nertworking
+Overlay 
+docker service create --name Apache2 --mode global -d -p 8003:80 httpd
+docker service ls
+docker network create -d overlay myoverlay1
+docker service ls
+docker service create --name webapp1 -d --network   myoverlay1 -p 8001:80 hshar/webapp
+docker service ls
+docker service create --name mysql -d --network   myoverlay1 -p 3306:3306 hshar/mysql:5.5
+
+docker exec -it cid bash (webapp)
+nano var/www/html/index.php
+uname root,
+pwd root
+database : citibank
+servername mysql
+update table name & column names
+
+
+
+docker exec -it cid bash (mysql)
+mysql -u root -pedureka
+create database citibank
+use database citibank
+create table courses(coursename varchar(20), courseid varchar(20));
+exit
+
+
+
+Kubernetes
+install kubectl
+install Miniqube (requires virtual box)
+
+kubectl get pods
+kubectl create -f ./docker-notes/kubernetes/helloworld-repl-controller.yml
+kubectl get pods
+kubectl describe pod helloworld-controller-swszw
+kubectl describe pod helloworld-controller-wlpdk
+kubectl describe pods
+kubectl delete pod helloworld-controller-swszw 
+kubectl scale --replicas=4 -f docker-notes/kubernetes/helloworld-repl-controller.yml
+kubectl scale --replicas=2 rc/helloworld-controller
+
+
+Deployments
 
