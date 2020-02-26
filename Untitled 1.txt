@@ -211,7 +211,7 @@ exit
 
 Kubernetes
 install kubectl
-install Miniqube (requires virtual box)
+install Minikube (requires virtual box)
 
 kubectl get pods
 kubectl create -f ./docker-notes/kubernetes/helloworld-repl-controller.yml
@@ -225,4 +225,96 @@ kubectl scale --replicas=2 rc/helloworld-controller
 
 
 Deployments
+minikube start --vm-driver=virtualbox
+kubectl create -f ./docker-notes/deployment/helloworld.yml 
+kubectl get deployments
+kubectl get pods --show-labels
+kubectl rollout status deployment/helloworld-deployment
+Deploy service 
+kubectl expose deployment helloworld-deployment --type=NodePort
+kubectl get services
+
+kubectl describe  service helloworld-deployment
+minikube service helloworld-deployment --url
+curl http://192.168.99.100:31618
+
+
+kubectl set image deployment/helloworld-deployment k8s-demo=wardviaene/k8s-demo:2
+kubectl rollout status deployment/helloworld-deployment
+kubectl rollout history  deployment/helloworld-deployment
+kubectl set image deployment/helloworld-deployment k8s-demo=wardviaene/k8s-demo:2 --record change_cause
+
+RC vs
+kubectl create -f ./docker-notes/deployment/client-pod.yaml
+
+ kubectl apply -f client-pod.yaml
+ kubectl apply -f client-node-pod.yaml
+kubectl get  service
+minikube service client-node-port --url
+
+
+declarative vs imperative
+update config (image name for pod)
+kubectl apply -f client-pod.yaml
+kubectl describe pod/client-pod
+
+kubectl delete -f client-pod.yaml 
+
+Update deployment
+ kubectl apply -f client-deployment.yaml
+ kubectl get pods
+ kubectl get deployments
+ minikube service client-node-port --url
+ kubectl get pods -o wide
+
+update config
+kubectl apply -f client-deployment.yaml
+kubectl  describe  pod client-deployment-6744d84985-r2bbs
+kubectl get deployments
+
+
+Health check
+
+Labels
+
+Secrets
+ mkdir secrets
+ cd secrets/
+ echo -n "root" > ./username.txt
+ echo -n "password" > ./password.txt
+ kubectl create secret generic db-user-pass --from-file=./username.txt --from-file=password.txt
+ kubectl get secret/db-user-pass
+
+minikube dashboard
+
+
+Service Discovery
+DNS
+
+
+ConfigMap
+kubectl create configmap app-config  --from-file=../configmap/app.properties
+kubectl get configmap
+kubectl describe  configmap/app-config
+
+kubectl create configmap nginx-config --from-file=reverseproxy.conf
+ kubectl get configmap nginx-config -o yaml
+kubectl create -f nginx.yml
+ kubectl create -f nginx-service.yml
+ kubectl get pod
+ kubectl get service
+kubectl  service helloworld-nginx-service --ur
+curl http://192.168.99.100:32583
+
+Ingress:
+
+1.  Start by creating the “mandatory” resources for Nginx Ingress in your cluster.
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/mandatory.yaml
+2.  Then, enable the ingress add-on for Minikube.
+minikube addons enable ingress
+3.  Or, if you’re using Docker for Mac to run Kubernetes instead of Minikube.
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/provider/cloud-generic.yaml
+4.  Check that it’s all set up correctly.
+kubectl get pods --all-namespaces -l app=ingress-nginx
+
 
