@@ -340,3 +340,8 @@ kubectl get rolebindings
 kubectl config current-context
 
 
+https://codeshare.io/G7e86Y
+http://collabedit.com/shpq8
+https://www.dropbox.com/sh/940s615up01b4cb/AABZcG_aZwuiZQlOlqxuD6Cwa?dl=0
+https://tcheck.co/n9mvLb
+
